@@ -1,50 +1,287 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
----
+// Home page: an advisory-firm landing page.
+// Every name and line of copy below is a placeholder. Replace it with your own.
+const brand = "Harbor & Pine";
+const tagline = "Independent Development Advisory";
+const region = "Your Region";
+const year = new Date().getFullYear();
 
+const stages = [
+  { id: "vision", title: "Vision", q: "What is this place for?" },
+  { id: "feasibility", title: "Feasibility", q: "Do the numbers hold up?" },
+  { id: "approvals", title: "Approvals", q: "Who has to say yes?" },
+  { id: "funding", title: "Funding", q: "Where does the money come from?" },
+  { id: "delivery", title: "Delivery", q: "How does it get built?" },
+];
+
+const lanes = {
+  owner: {
+    label: "Landowner",
+    blurb: "You hold a site and want to know its best use before you commit to anything.",
+    stages: ["vision", "feasibility", "approvals"],
+  },
+  builder: {
+    label: "Builder",
+    blurb: "You have a pipeline and need a clear read on risk, approvals and capital.",
+    stages: ["feasibility", "approvals", "funding"],
+  },
+  civic: {
+    label: "Civic client",
+    blurb: "You serve a community and need projects that are fundable and deliverable.",
+    stages: ["vision", "funding", "delivery"],
+  },
+};
+
+const principles = [
+  { title: "Plain answers", body: "We say early what is worth pursuing, and what is not, so you can decide quickly." },
+  { title: "Before the big spend", body: "We come in before the consultant team is hired, when changing course is still cheap." },
+  { title: "Both sides of the table", body: "We work with public and private clients, so we know what each side needs to say yes." },
+];
+
+const people = [
+  { name: "Partner Name", role: "Founding Partner", initials: "PN" },
+  { name: "Partner Name", role: "Founding Partner", initials: "PN" },
+];
+
+const posts = [
+  { title: "Reading a Zoning Code in an Afternoon", meta: "Article", tone: "a" },
+  { title: "Mill Building Reuse Study", meta: "Project", tone: "b" },
+  { title: "Why Small Lots Matter", meta: "Article", tone: "c" },
+  { title: "Downtown Infill Feasibility", meta: "Project", tone: "d" },
+  { title: "Grant Stacking for Mixed-Use", meta: "Article", tone: "b" },
+  { title: "Corridor Retail Repositioning", meta: "Project", tone: "a" },
+];
+---
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{brand} | {tagline}</title>
+  <meta name="description" content={`${brand}: ${tagline.toLowerCase()} for owners, builders and civic clients.`} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="nav">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true"></span>{brand}</a>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#team">Team</a>
+      <a href="/blog">Writing</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <p class="eyebrow">{tagline} · {region}</p>
+      <h1>From idea<br /><em>to ground.</em></h1>
+      <p class="lede">We help owners, builders and public partners test what a site can become, and then plan a realistic way to deliver it.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-solid">Book a call</a>
+        <a href="#services" class="btn btn-line">How we work</a>
+      </div>
+    </section>
+
+    <!-- Services / lanes -->
+    <section id="services" class="block">
+      <p class="eyebrow">Services</p>
+      <h2>One path, several starting points.</h2>
+      <p class="sub">Every project goes through the same five stages. Pick the role closest to yours to see which stages we usually cover.</p>
+
+      <div class="lanes" role="tablist">
+        {Object.entries(lanes).map(([key, l]) => (
+          <button class="lane" role="tab" data-lane={key} data-stages={l.stages.join(",")} data-blurb={l.blurb}>{l.label}</button>
+        ))}
+      </div>
+      <p class="lane-blurb" id="lane-blurb">Choose a role above.</p>
+
+      <ol class="stages">
+        {stages.map((s, i) => (
+          <li class="stage" data-stage={s.id}>
+            <span class="stage-num">{String(i + 1).padStart(2, "0")}</span>
+            <h3>{s.title}</h3>
+            <p>{s.q}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- Principles -->
+    <section class="block principles">
+      {principles.map((p) => (
+        <article>
+          <h3>{p.title}</h3>
+          <p>{p.body}</p>
+        </article>
+      ))}
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="block team">
+      <div>
+        <p class="eyebrow">Team</p>
+        <h2>A small core team, with specialists brought in as needed.</h2>
+        <p class="sub">A partner leads every engagement. Architects, planners, brokers and analysts join only when the project needs them.</p>
+        <a href="/about" class="btn btn-line">About us</a>
+      </div>
+      <div class="people">
+        {people.map((p) => (
+          <figure>
+            <div class="avatar" aria-hidden="true">{p.initials}</div>
+            <figcaption><strong>{p.name}</strong><span>{p.role}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <!-- Writing & projects -->
+    <section class="block">
+      <p class="eyebrow">Projects &amp; Writing</p>
+      <h2>Recent work and ideas.</h2>
+      <div class="wall">
+        {posts.map((p) => (
+          <a href="/blog" class={`tile tone-${p.tone}`}>
+            <span class="tile-meta">{p.meta}</span>
+            <span class="tile-title">{p.title}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <h2>Have a site in mind?</h2>
+      <p>Tell us where it is and what you are hoping for. We reply within two business days.</p>
+      <a href="mailto:hello@example.com" class="btn btn-light">hello@example.com</a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© {year} {brand}</span>
+    <span>Advisory services only · not a brokerage</span>
+  </footer>
+
+  <script>
+    const tabs = document.querySelectorAll<HTMLButtonElement>(".lane");
+    const stageEls = document.querySelectorAll<HTMLElement>(".stage");
+    const blurb = document.getElementById("lane-blurb")!;
+    tabs.forEach((tab) =>
+      tab.addEventListener("click", () => {
+        const active = tab.getAttribute("aria-selected") !== "true";
+        tabs.forEach((t) => t.setAttribute("aria-selected", "false"));
+        const on = active ? (tab.dataset.stages || "").split(",") : [];
+        tab.setAttribute("aria-selected", String(active));
+        blurb.textContent = active ? tab.dataset.blurb || "" : "Choose a role above.";
+        stageEls.forEach((s) => {
+          s.classList.toggle("is-on", on.includes(s.dataset.stage || ""));
+          s.classList.toggle("is-dim", active && !on.includes(s.dataset.stage || ""));
+        });
+      })
+    );
+  </script>
+
+  <style is:global>
+    :root {
+      --paper: #f4f2ea;
+      --ink: #1a1c18;
+      --muted: #5f645a;
+      --line: #d9d6c8;
+      --accent: #3f5a4a;
+      --accent-soft: #e3e8dc;
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "Inter", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 300 17px/1.6 var(--sans); }
+    a { color: inherit; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; margin: 0; }
+    em { font-style: italic; color: var(--accent); }
+
+    .nav { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center;
+      padding: 18px clamp(16px, 5vw, 64px); background: color-mix(in srgb, var(--paper) 88%, transparent);
+      backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .logo { display: flex; align-items: center; gap: 10px; font: 500 18px var(--serif); text-decoration: none; }
+    .logo-mark { width: 22px; height: 22px; border-radius: 50% 50% 4px 50%; background: var(--accent); }
+    .nav nav { display: flex; gap: clamp(12px, 3vw, 32px); font-size: 14px; letter-spacing: .04em; }
+    .nav nav a { text-decoration: none; color: var(--muted); }
+    .nav nav a:hover { color: var(--ink); }
+    .nav-cta { color: var(--accent) !important; font-weight: 500; }
+
+    main > section { padding: clamp(64px, 10vw, 128px) clamp(16px, 5vw, 64px); max-width: 1200px; margin: 0 auto; }
+    .eyebrow { font: 500 12px var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+
+    .hero { min-height: 82vh; display: flex; flex-direction: column; justify-content: center; }
+    .hero h1 { font-size: clamp(52px, 10vw, 128px); font-weight: 300; letter-spacing: -.02em; }
+    .lede { max-width: 560px; font-size: clamp(17px, 2vw, 20px); color: var(--muted); margin: 28px 0 36px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .btn { display: inline-block; padding: 13px 26px; border-radius: 999px; font: 500 13px var(--sans);
+      letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: .2s; }
+    .btn-solid { background: var(--accent); color: var(--paper); }
+    .btn-solid:hover { background: var(--ink); }
+    .btn-line { border: 1px solid var(--ink); }
+    .btn-line:hover { background: var(--ink); color: var(--paper); }
+    .btn-light { background: var(--paper); color: var(--accent); text-transform: none; letter-spacing: 0; font-size: 16px; }
+
+    h2 { font-size: clamp(32px, 5vw, 56px); max-width: 760px; }
+    .sub { max-width: 620px; color: var(--muted); margin: 20px 0 32px; }
+
+    .lanes { display: flex; flex-wrap: wrap; gap: 8px; }
+    .lane { font: 500 14px var(--sans); padding: 10px 20px; border-radius: 999px; border: 1px solid var(--line);
+      background: transparent; color: var(--ink); cursor: pointer; transition: .2s; }
+    .lane:hover { border-color: var(--accent); }
+    .lane[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+    .lane-blurb { min-height: 1.6em; color: var(--muted); font-style: italic; margin: 18px 0 32px; }
+
+    .stages { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+      background: var(--line); border: 1px solid var(--line); }
+    .stage { background: var(--paper); padding: 28px 22px 36px; transition: .3s; }
+    .stage-num { font-size: 12px; color: var(--muted); }
+    .stage h3 { font-size: 26px; margin: 28px 0 8px; }
+    .stage p { margin: 0; font-size: 15px; color: var(--muted); }
+    .stage.is-on { background: var(--accent-soft); }
+    .stage.is-on h3 { color: var(--accent); }
+    .stage.is-dim { opacity: .4; }
+
+    .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 56px); border-top: 1px solid var(--line); }
+    .principles h3 { font-size: 24px; margin-bottom: 12px; }
+    .principles p { color: var(--muted); margin: 0; }
+
+    .team { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: center; }
+    .people { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .people figure { margin: 0; }
+    .avatar { aspect-ratio: 4/5; border-radius: 4px; display: grid; place-items: center; font: 300 48px var(--serif);
+      color: var(--accent); background: linear-gradient(160deg, var(--accent-soft), #cfd6c6); }
+    .people figcaption { display: flex; flex-direction: column; margin-top: 10px; font-size: 15px; }
+    .people figcaption span { color: var(--muted); font-size: 13px; }
+
+    .wall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+    .tile { aspect-ratio: 4/3; padding: 22px; border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between;
+      text-decoration: none; color: var(--paper); transition: transform .25s; }
+    .tile:hover { transform: translateY(-4px); }
+    .tile-meta { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }
+    .tile-title { font: 400 24px/1.15 var(--serif); }
+    .tone-a { background: #3f5a4a; } .tone-b { background: #7a6a52; }
+    .tone-c { background: #2f3a44; } .tone-d { background: #8a8f6e; }
+
+    .contact { text-align: center; background: var(--accent); color: var(--paper); max-width: none !important; }
+    .contact h2 { margin: 0 auto 16px; }
+    .contact p { opacity: .85; margin: 0 0 32px; }
+
+    .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 28px clamp(16px, 5vw, 64px);
+      font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 860px) {
+      .stages { grid-template-columns: 1fr 1fr; }
+      .principles, .team, .wall { grid-template-columns: 1fr; }
+      .nav nav a:not(.nav-cta) { display: none; }
+    }
+  </style>
+</body>
 </html>
